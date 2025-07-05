@@ -1,0 +1,45 @@
+
+org: imyogeshgaur
+
+app: raashan
+
+service: raashan
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+  stage: production
+  timeout: 10
+
+functions:
+  auth:
+    handler: handler.auth
+    events:
+      - httpApi:
+          path: /auth/login
+          method: post
+      - httpApi:
+          path: /auth/register
+          method: post
+      - httpApi:
+          path: /auth/forgetPassword
+          method: post
+      - httpApi:
+          path: /auth/resetPassword
+          method: post
+  user:
+    handler: handler.user
+    events:
+      - httpApi:
+          path: /user/getAll
+          method: get
+      - httpApi:
+          path: /user/getSingle/{userId}
+          method: post
+      - httpApi:
+          path: /user/update/{userId}
+          method: put
+      - httpApi:
+          path: /user/delete/{userId}
+          method: delete 
